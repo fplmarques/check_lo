@@ -13,9 +13,10 @@ def find_common_regions(json_file, countries):
         return None
 
     # Extract unique values for each region level
-    intermediate_regions = {entry['Intermediate Region Name'] for entry in filtered_data if entry['Intermediate Region Name']}
-    sub_regions = {entry['Sub-region Name'] for entry in filtered_data if entry['Sub-region Name']}
-    regions = {entry['Region Name'] for entry in filtered_data if entry['Region Name']}
+    intermediate_regions = {entry['Intermediate Region Name'] if entry['Intermediate Region Name'] else 'no_attribute' for entry in filtered_data}
+    sub_regions = {entry['Sub-region Name'] if entry['Sub-region Name'] else 'no_attribute' for entry in filtered_data}
+    regions = {entry['Region Name'] if entry['Region Name'] else 'no_attribute' for entry in filtered_data}
+
 
     # Check commonality
     if len(intermediate_regions) == 1:
