@@ -1,10 +1,9 @@
-
 import json
 
 def find_common_regions(file_path, countries):
     """
     Load the M49 JSON file and return the common region, sub-region, and intermediate region names
-    for the specified list of countries.
+    for the specified list of countries. Returns the highest common level for the given countries.
     
     :param file_path: Path to the M49 JSON file.
     :param countries: List of country or area names.
@@ -21,21 +20,34 @@ def find_common_regions(file_path, countries):
                 "Sub-region Name": "Worldwide", 
                 "Region Name": "Worldwide"}
     
-    # Extract region names
-    intermediate_regions = {entry["Intermediate Region Name"] for entry in filtered_data}
-    sub_regions = {entry["Sub-region Name"] for entry in filtered_data}
-    regions = {entry["Region Name"] for entry in filtered_data}
+    # Extract unique region levels
+    intermediate_regions = {entry["Intermediate Region Name"] for entry in filtered_data if entry["Intermediate Region Name"]}
+    sub_regions = {entry["Sub-region Name"] for entry in filtered_data if entry["Sub-region Name"]}
+    regions = {entry["Region Name"] for entry in filtered_data if entry["Region Name"]}
     
-    # Determine commonality
-    intermediate_region = intermediate_regions.pop() if len(intermediate_regions) == 1 else "Worldwide"
-    sub_region = sub_regions.pop() if len(sub_regions) == 1 else "Worldwide"
-    region = regions.pop() if len(regions) == 1 else "Worldwide"
-    
-    return {
-        "Intermediate Region Name": intermediate_region,
-        "Sub-region Name": sub_region,
-        "Region Name": region
-    }
+    # Check the highest commonality level
+    if len(intermediate_regions) == 1:
+        return {
+            "Intermediate Region Name": intermediate_regions.pop(),
+            "Sub-region Name": sub_regions.pop() if len(sub_regions) == 1 else "Worldwide",
+            "Region Name": regions.pop() if len(regions) == 1 else "Worldwide"
+        }
+    elif len(sub_regions) == 1:
+        return {
+            "Intermediate Region Name": "Worldwide",
+            "Sub-region Name": sub_regions.pop(),
+            "Region Name": regions.pop() if len(regions) == 1 else "Worldwide"
+        }
+    elif len(regions) == 1:
+        return {
+            "Intermediate Region Name": "Worldwide",
+            "Sub-region Name": "Worldwide",
+            "Region Name": regions.pop()
+        }
+    else:
+        return {"Intermediate Region Name": "Worldwide", 
+                "Sub-region Name": "Worldwide", 
+                "Region Name": "Worldwide"}
 
 # Example usage
 file_path = '2022-09-24__JSON_UNSD_M49.json'
