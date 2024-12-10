@@ -1,56 +1,34 @@
 import json
 
-def find_common_regions(file_path, countries):
-    """
-    Load the M49 JSON file and return the common region, sub-region, and intermediate region names
-    for the specified list of countries. Returns the highest common level for the given countries.
-    
-    :param file_path: Path to the M49 JSON file.
-    :param countries: List of country or area names.
-    :return: Dictionary with "Intermediate Region Name", "Sub-region Name", and "Region Name".
-    """
-    with open(file_path, 'r') as file:
+def find_common_regions(json_file, countries):
+    # Load JSON file
+    with open(json_file, 'r', encoding='utf-8') as file:
         data = json.load(file)
-    
-    # Filter entries corresponding to the provided countries
-    filtered_data = [entry for entry in data if entry["Country or Area"] in countries]
-    
-    if not filtered_data:
-        return {"Intermediate Region Name": "Worldwide", 
-                "Sub-region Name": "Worldwide", 
-                "Region Name": "Worldwide"}
-    
-    # Extract unique region levels
-    intermediate_regions = {entry["Intermediate Region Name"] for entry in filtered_data if entry["Intermediate Region Name"]}
-    sub_regions = {entry["Sub-region Name"] for entry in filtered_data if entry["Sub-region Name"]}
-    regions = {entry["Region Name"] for entry in filtered_data if entry["Region Name"]}
-    
-    # Check the highest commonality level
+
+    # Filter data for selected countries
+    filtered_data = [entry for entry in data if entry['Country or Area'] in countries]
+
+    # If any country is missing, return None
+    if len(filtered_data) != len(countries):
+        return None
+
+    # Extract unique values for each region level
+    intermediate_regions = {entry['Intermediate Region Name'] for entry in filtered_data if entry['Intermediate Region Name']}
+    sub_regions = {entry['Sub-region Name'] for entry in filtered_data if entry['Sub-region Name']}
+    regions = {entry['Region Name'] for entry in filtered_data if entry['Region Name']}
+
+    # Check commonality
     if len(intermediate_regions) == 1:
-        return {
-            "Intermediate Region Name": intermediate_regions.pop(),
-            "Sub-region Name": sub_regions.pop() if len(sub_regions) == 1 else "Worldwide",
-            "Region Name": regions.pop() if len(regions) == 1 else "Worldwide"
-        }
+        return list(intermediate_regions)[0]
     elif len(sub_regions) == 1:
-        return {
-            "Intermediate Region Name": "Worldwide",
-            "Sub-region Name": sub_regions.pop(),
-            "Region Name": regions.pop() if len(regions) == 1 else "Worldwide"
-        }
+        return list(sub_regions)[0]
     elif len(regions) == 1:
-        return {
-            "Intermediate Region Name": "Worldwide",
-            "Sub-region Name": "Worldwide",
-            "Region Name": regions.pop()
-        }
+        return list(regions)[0]
     else:
-        return {"Intermediate Region Name": "Worldwide", 
-                "Sub-region Name": "Worldwide", 
-                "Region Name": "Worldwide"}
+        return "No common region found"
 
 # Example usage
-file_path = '2022-09-24__JSON_UNSD_M49.json'
+json_file = '2022-09-24__JSON_UNSD_M49.json'
 countries = ["Burkina Faso", "Cabo Verde"]
-result = find_common_regions(file_path, countries)
-print(result)
+common_region = find_common_regions(json_file, countries)
+print(f"Common region: {common_region}")
