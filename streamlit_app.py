@@ -64,7 +64,8 @@ def main():
     st.title("M49 Country or Area Region Checker")
 
     # JSON file is pre-loaded from the directory
-    json_file = '2022-09-24__JSON_UNSD_M49.json'
+    # json_file = '2022-09-24__JSON_UNSD_M49.json'
+    json_file = 'UNSD_M49_official.json'
 
     # Input countries
     input_countries = st.text_area("Enter countries separated by commas:")
