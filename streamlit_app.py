@@ -58,7 +58,7 @@ def find_common_regions(json_file, countries):
     elif len(regions) == 1 and list(regions)[0] != 'no_attribute':
         return list(regions)[0]
     else:
-        return "No common region found: Multinational"
+        return "Multinational"
 
 def main():
     st.title("M49 Country or Area Region Checker")
