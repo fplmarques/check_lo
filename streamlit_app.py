@@ -82,11 +82,11 @@ def main():
     affected_areas = ", ".join(affected_areas[:-1]) + ", and " + affected_areas[-1]
     
     st.write("Revised Country Names:", countries)
-    st.write("Affected areas:", affected_areas)
 
     # Find common region
     common_region = find_common_regions(json_file, countries)
-    st.write("Common (sub-)Region:", common_region)
+    st.write("**Common (sub-)Region:**", common_region)
+    st.write("**Affected areas:**", affected_areas)
 
 if __name__ == "__main__":
     main()
