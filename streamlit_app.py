@@ -77,6 +77,9 @@ def main():
 
     # Validate and revise country names
     countries = check_proper_names(input_countries, M49_countries_or_areas)
+    # This will remove duplicates from M49 country assignment (comma related)
+    countries = list(set(countries))
+    
     affected_areas = check_proper_names(input_countries, can_gov_countries_or_areas)
     # Transforming affected ares in a string
     affected_areas = ", ".join(affected_areas[:-1]) + ", and " + affected_areas[-1]
