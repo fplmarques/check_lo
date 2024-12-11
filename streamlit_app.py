@@ -1,7 +1,7 @@
 import json
 import streamlit as st
 from rapidfuzz import process
-from coutry_or_areas import M49_countries_or_areas
+from country_or_areas import M49_countries_or_areas
 
 def check_M49_proper_names(input_localities, M49_countries_or_areas):
     revised_localities = []
