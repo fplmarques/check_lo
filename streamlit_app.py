@@ -5,7 +5,7 @@ from country_or_areas import M49_countries_or_areas, can_gov_countries_or_areas
 
 def check_proper_names(input_localities, countries_or_areas):
     revised_localities = []
-
+    
     for locality in input_localities:
         # Find the closest match
         closest_match = process.extractOne(locality, countries_or_areas)
@@ -24,7 +24,7 @@ def find_common_regions(json_file, countries):
 
     # Display filtered data as a table
     if filtered_data:
-        st.write("UN M49 labels:")
+        st.write("**UNSD M49 labels:**")
         # Create a table-friendly structure
         table_data = [
             {
