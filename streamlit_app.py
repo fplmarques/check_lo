@@ -23,14 +23,34 @@ def find_common_regions(json_file, countries):
     
     # Display filtered data
     st.write("Filtered Data:")
-    for country in filtered_data:
-        st.write(
-            country['Region Name'],
-            country['Sub-region Name'],
-            country['Intermediate Region Name'],
-            country['Country or Area']
-        )
+    #for country in filtered_data:
+    #    st.write(
+    #        country['Region Name'],
+    #        country['Sub-region Name'],
+    #        country['Intermediate Region Name'],
+    #        country['Country or Area']
+    #    )
 
+
+    # Display filtered data as a table
+    if filtered_data:
+        st.write("Filtered Data:")
+        # Create a table-friendly structure
+        table_data = [
+            {
+                "Region Name": country['Region Name'],
+                "Sub-region Name": country['Sub-region Name'],
+                "Intermediate Region Name": country['Intermediate Region Name'],
+                "Country or Area": country['Country or Area']
+            }
+            for country in filtered_data
+        ]
+        # Display the table
+        st.table(table_data)
+    else:
+        st.write("No data available for the selected countries.")
+
+    
     # If any country is missing, return None
     if len(filtered_data) != len(countries):
         return "Check country names"
