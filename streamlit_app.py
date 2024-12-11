@@ -81,7 +81,7 @@ def main():
     # Transforming affected ares in a string
     affected_areas = ", ".join(affected_areas[:-1]) + ", and " + affected_areas[-1]
     
-    st.write("Revised Country Names:", countries)
+    st.write("**Revised country names (UNSD M49):**", countries)
 
     # Find common region
     common_region = find_common_regions(json_file, countries)
