@@ -1,9 +1,9 @@
 import json
 import streamlit as st
 from rapidfuzz import process
-from country_or_areas import M49_countries_or_areas
+from country_or_areas import M49_countries_or_areas, can_gov_countries_or_areas
 
-def check_M49_proper_names(input_localities, M49_countries_or_areas):
+def check_proper_names(input_localities, countries_or_areas):
     revised_localities = []
 
     for locality in input_localities:
@@ -76,8 +76,13 @@ def main():
     countries = [country.strip() for country in input_countries.split(',')]
 
     # Validate and revise country names
-    countries = check_M49_proper_names(countries, M49_countries_or_areas)
+    countries = check_proper_names(countries, M49_countries_or_areas)
+    affected_areas = check_proper_names(countries, can_gov_countries_or_areas)
+    # Transforming affected ares in a string
+    affected_areas = ", ".join(affected_areas[:-1]) + ", and " + affected_areas[-1]
+    
     st.write("Revised Country Names:", countries)
+    st.write("Affected areas:", affected_areas)
 
     # Find common region
     common_region = find_common_regions(json_file, countries)
