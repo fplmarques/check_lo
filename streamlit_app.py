@@ -73,11 +73,11 @@ def main():
         st.warning("Please enter at least one country.")
         return
 
-    countries = [country.strip() for country in input_countries.split(',')]
+    input_countries = [country.strip() for country in input_countries.split(',')]
 
     # Validate and revise country names
-    countries = check_proper_names(countries, M49_countries_or_areas)
-    affected_areas = check_proper_names(countries, can_gov_countries_or_areas)
+    countries = check_proper_names(input_countries, M49_countries_or_areas)
+    affected_areas = check_proper_names(input_countries, can_gov_countries_or_areas)
     # Transforming affected ares in a string
     affected_areas = ", ".join(affected_areas[:-1]) + ", and " + affected_areas[-1]
     
