@@ -8,7 +8,7 @@ def check_proper_names(input_localities, countries_or_areas):
 
     for locality in input_localities:
         # Find the closest match
-        closest_match = process.extractOne(locality, M49_countries_or_areas)
+        closest_match = process.extractOne(locality, countries_or_areas)
         revised_localities.append(closest_match[0])
 
     return revised_localities
