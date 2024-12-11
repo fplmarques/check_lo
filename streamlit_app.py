@@ -90,7 +90,7 @@ def main():
     affected_areas = list(set(affected_areas))
     
     # Transforming affected araes in string for report
-    if len() = 1:
+    if len() == 1:
         affected_areas = affected_areas[0]
     else:
         affected_areas = ", ".join(affected_areas[:-1]) + ", and " + affected_areas[-1]
