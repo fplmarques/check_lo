@@ -1,0 +1,76 @@
+import json
+import streamlit as st
+from rapidfuzz import process
+from coutry_or_areas import M49_countries_or_areas
+
+def check_M49_proper_names(input_localities, M49_countries_or_areas):
+    revised_localities = []
+
+    for locality in input_localities:
+        # Find the closest match
+        closest_match = process.extractOne(locality, M49_countries_or_areas)
+        revised_localities.append(closest_match[0])
+
+    return revised_localities
+
+def find_common_regions(json_file, countries):
+    # Load JSON file
+    with open(json_file, 'r', encoding='utf-8') as file:
+        data = json.load(file)
+
+    # Filter data for selected countries
+    filtered_data = [entry for entry in data if entry['Country or Area'] in countries]
+    
+    # Display filtered data
+    st.write("Filtered Data:")
+    for country in filtered_data:
+        st.write(
+            country['Region Name'],
+            country['Sub-region Name'],
+            country['Intermediate Region Name'],
+            country['Country or Area']
+        )
+
+    # If any country is missing, return None
+    if len(filtered_data) != len(countries):
+        return "Check country names"
+
+    # Extract unique values for each region level
+    intermediate_regions = {entry['Intermediate Region Name'] if entry['Intermediate Region Name'] else 'no_attribute' for entry in filtered_data}
+    sub_regions = {entry['Sub-region Name'] if entry['Sub-region Name'] else 'no_attribute' for entry in filtered_data}
+    regions = {entry['Region Name'] if entry['Region Name'] else 'no_attribute' for entry in filtered_data}
+
+    # Check commonality
+    if len(intermediate_regions) == 1 and list(intermediate_regions)[0] != 'no_attribute':
+        return list(intermediate_regions)[0]
+    elif len(sub_regions) == 1 and list(sub_regions)[0] != 'no_attribute':
+        return list(sub_regions)[0]
+    elif len(regions) == 1 and list(regions)[0] != 'no_attribute':
+        return list(regions)[0]
+    else:
+        return "No common region found: Multinational"
+
+def main():
+    st.title("M49 Country or Area Region Checker")
+
+    # JSON file is pre-loaded from the directory
+    json_file = '2022-09-24__JSON_UNSD_M49.json'
+
+    # Input countries
+    input_countries = st.text_area("Enter countries separated by commas:")
+    if not input_countries:
+        st.warning("Please enter at least one country.")
+        return
+
+    countries = [country.strip() for country in input_countries.split(',')]
+
+    # Validate and revise country names
+    countries = check_M49_proper_names(countries, M49_countries_or_areas)
+    st.write("Revised Country Names:", countries)
+
+    # Find common region
+    common_region = find_common_regions(json_file, countries)
+    st.write("Common Region:", common_region)
+
+if __name__ == "__main__":
+    main()
