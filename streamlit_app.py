@@ -81,6 +81,9 @@ def main():
     countries = list(set(countries))
     
     affected_areas = check_proper_names(input_countries, can_gov_countries_or_areas)
+    # Removing duplicates (comma related)
+    affected_areas = list(set(affected_areas))
+    
     # Transforming affected ares in a string
     affected_areas = ", ".join(affected_areas[:-1]) + ", and " + affected_areas[-1]
     
