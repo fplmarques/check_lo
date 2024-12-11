@@ -63,8 +63,7 @@ def find_common_regions(json_file, countries):
 def main():
     st.title("M49 Country or Area Region Checker")
 
-    # JSON file is pre-loaded from the directory
-    # json_file = '2022-09-24__JSON_UNSD_M49.json'
+    # JSON file generated from official CSV file
     json_file = 'UNSD_M49_official.json'
 
     # Input countries
@@ -73,6 +72,11 @@ def main():
         st.warning("Please enter at least one country.")
         return
 
+    # Special cases: Korea
+    input_countries = input_countries.replace("North Korea", "Democratic People's Republic of Korea")
+    input_countries = input_countries.replace("South Korea", "Republic of Korea")
+
+    # Building lis and removing leading and training spaces
     input_countries = [country.strip() for country in input_countries.split(',')]
 
     # Validate and revise country names
