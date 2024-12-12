@@ -95,7 +95,7 @@ def main():
     input_countries_org = [country.strip() for country in input_countries_org.split(',')]
     affected_areas = check_proper_names(input_countries_org, can_gov_countries_or_areas)
     # Removing duplicates (comma related)
-    affected_areas = list(set(affected_areas))
+    affected_areas = list(set(affected_areas)).sort()
     
     # Transforming affected araes in string for report
     if len(affected_areas) == 1:
