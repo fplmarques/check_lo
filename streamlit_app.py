@@ -75,6 +75,7 @@ def main():
         return
 
     # Handling substitutions for special cases for UNSD M49:
+    input_countries = input_countries.replace("Laos", "Lao People's Democratic Republic")
     input_countries = input_countries.replace("North Korea", "Democratic People's Republic of Korea")
     input_countries = input_countries.replace("South Korea", "Republic of Korea")
     input_countries = input_countries.replace("Macao", "Macao Special Administrative Region")
