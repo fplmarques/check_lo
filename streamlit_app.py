@@ -43,7 +43,7 @@ def find_common_regions(json_file, countries):
     
     # If any country is missing, return None
     if len(filtered_data) != len(countries):
-        return "Check country names"
+        return "ERROR - Check country names"
 
     # Extract unique values for each region level
     intermediate_regions = {entry['Intermediate Region Name'] if entry['Intermediate Region Name'] else 'no_attribute' for entry in filtered_data}
