@@ -107,6 +107,8 @@ def main():
     # Transforming affected araes in string for report
     if len(affected_areas) == 1:
         affected_areas = affected_areas[0]
+    elif len(affected_areas) == 2:
+        affected_areas = f"{affected_areas[0]} and {affected_areas[0]}"
     else:
         affected_areas = ", ".join(affected_areas[:-1]) + ", and " + affected_areas[-1]
     
