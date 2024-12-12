@@ -72,7 +72,7 @@ def main():
         st.warning("Please enter at least one country.")
         return
 
-    # Handling substitutions for special cases:
+    # Handling substitutions for special cases for UNSD M49:
     input_countries = input_countries.replace("North Korea", "Democratic People's Republic of Korea")
     input_countries = input_countries.replace("South Korea", "Republic of Korea")
     input_countries = input_countries.replace("Macao", "Macao Special Administrative Region")
@@ -87,6 +87,11 @@ def main():
     countries = check_proper_names(input_countries, M49_countries_or_areas)
     # This will remove duplicates from M49 country assignment (comma related)
     countries = list(set(countries))
+
+    # Handling substitutions for special cases for CAN Gov:
+    input_countries = input_countries.replace("State of Palestine", "West Bank and Gaza")
+    input_countries = input_countries.replace("State of Palestine", "Gaza")
+    input_countries = input_countries.replace("State of Palestine", "West Bank")
     
     affected_areas = check_proper_names(input_countries, can_gov_countries_or_areas)
     # Removing duplicates (comma related)
