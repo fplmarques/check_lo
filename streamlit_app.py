@@ -68,6 +68,8 @@ def main():
 
     # Input countries
     input_countries = st.text_area("Enter countries separated by commas:")
+    input_countries_org = input_countries # preservin original entries
+    
     if not input_countries:
         st.warning("Please enter at least one country.")
         return
@@ -88,7 +90,7 @@ def main():
     # This will remove duplicates from M49 country assignment (comma related)
     countries = list(set(countries))
 
-    affected_areas = check_proper_names(input_countries, can_gov_countries_or_areas)
+    affected_areas = check_proper_names(input_countries_org, can_gov_countries_or_areas)
     # Removing duplicates (comma related)
     affected_areas = list(set(affected_areas))
     
