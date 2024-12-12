@@ -82,6 +82,10 @@ def main():
     input_countries = input_countries.replace("West Bank and Gaza", "State of Palestine")
     input_countries = input_countries.replace("Gaza", "State of Palestine")
     input_countries = input_countries.replace("West Bank", "State of Palestine")
+    input_countries = input_countries.replace("Vatican City State", "Holy See")
+    input_countries = input_countries.replace("Vatican City", "Holy See")
+    input_countries = input_countries.replace("Vatican", "Holy See")
+
 
     # Building list and removing leading and training spaces
     input_countries = [country.strip() for country in input_countries.split(',')]
