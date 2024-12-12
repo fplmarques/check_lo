@@ -72,10 +72,13 @@ def main():
         st.warning("Please enter at least one country.")
         return
 
-    # Substitutions for special cases:
+    # Handling substitutions for special cases:
     input_countries = input_countries.replace("North Korea", "Democratic People's Republic of Korea")
     input_countries = input_countries.replace("South Korea", "Republic of Korea")
     input_countries = input_countries.replace("Macao", "Macao Special Administrative Region")
+	input_countries = input_countries.replace("West Bank and Gaza", "State of Palestine")
+	input_countries = input_countries.replace("Gaza", "State of Palestine")
+	input_countries = input_countries.replace("West Bank", "State of Palestine")
 
     # Building lis and removing leading and training spaces
     input_countries = [country.strip() for country in input_countries.split(',')]
