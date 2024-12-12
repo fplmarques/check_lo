@@ -81,15 +81,12 @@ def main():
     input_countries = input_countries.replace("West Bank", "State of Palestine")
 
     # Building lis and removing leading and training spaces
-    input_countries_list = [country.strip() for country in input_countries.split(',')]
+    input_countries = [country.strip() for country in input_countries.split(',')]
 
     # Validate and revise country names
-    countries = check_proper_names(input_countries_list, M49_countries_or_areas)
+    countries = check_proper_names(input_countries, M49_countries_or_areas)
     # This will remove duplicates from M49 country assignment (comma related)
     countries = list(set(countries))
-
-    # Handling substitutions for special cases for CAN Gov:
-    input_countries = input_countries.replace("State of Palestine", "West Bank and Gaza")
 
     affected_areas = check_proper_names(input_countries, can_gov_countries_or_areas)
     # Removing duplicates (comma related)
