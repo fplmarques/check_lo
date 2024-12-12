@@ -89,6 +89,7 @@ def main():
     countries = check_proper_names(input_countries, M49_countries_or_areas)
     # This will remove duplicates from M49 country assignment (comma related)
     countries = list(set(countries))
+    countries.sort()
 
     # For Can Gov
     # Starting by making a list
