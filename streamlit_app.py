@@ -1,123 +1,85 @@
-import json
-import streamlit as st
+import pandas as pd
 from rapidfuzz import process
-from country_or_areas import M49_countries_or_areas, can_gov_countries_or_areas
+import streamlit as st
 
-def check_proper_names(input_localities, countries_or_areas):
-    revised_localities = []
-    
-    for locality in input_localities:
-        # Find the closest match
-        closest_match = process.extractOne(locality, countries_or_areas)
-        revised_localities.append(closest_match[0])
+# Load the CSV file into a DataFrame
+# The database consolidates the country names from CGov and regions and continents from UN m49
+#
+db = pd.read_csv("./localities_db.tsv", sep="\t")
+db = db.drop(columns=['CAN_PROV']) # the code is intended to deal with countries not Canadian P/Ts
 
-    return revised_localities
+# Function to filter the DataFrame based on user input
+# I am using rapidfuzz to account for misspelling and/or names not in conformity with the current database
+# There were odd behaviors in a previous version which were not tested yet
+#
+def filter_dataframe_by_country(input_countries, dataframe):
+    # Split the input string into a list of countries
+    input_country_list = [country.strip() for country in input_countries.split(",")]
 
-def find_common_regions(json_file, countries):
-    # Load JSON file
-    with open(json_file, 'r', encoding='utf-8') as file:
-        data = json.load(file)
+    # Get all unique countries in the dataframe
+    all_countries = dataframe['COUNTRY'].dropna().unique()
 
-    # Filter data for selected countries
-    filtered_data = [entry for entry in data if entry['Country or Area'] in countries]
-    
+    # Map user input countries to the closest matches in the DataFrame
+    matched_countries = []
+    for country in input_country_list:
+        match_result = process.extractOne(country, all_countries)
+        matched_countries.append(match_result[0])
 
-    # Display filtered data as a table
-    if filtered_data:
-        st.write("**UNSD M49 labels:**")
-        # Create a table-friendly structure
-        table_data = [
-            {
-                "Region Name": country['Region Name'],
-                "Sub-region Name": country['Sub-region Name'],
-                "Intermediate Region Name": country['Intermediate Region Name'],
-                "Country or Area": country['Country or Area']
-            }
-            for country in filtered_data
-        ]
-        # Display the table
-        st.table(table_data)
+    # Filter the DataFrame for the matched countries
+    filtered_df = dataframe[dataframe['COUNTRY'].isin(matched_countries)]
+
+    return filtered_df
+
+# This function recover the Area Attribution based on the rules we set upt
+# Has to be tested
+# 
+def determine_area_attribution(filtered_df):
+    if filtered_df.empty:
+        return "No matches found.", "No affected countries."
+
+    unique_regions = filtered_df['REGION'].dropna().unique()
+    unique_continents = filtered_df['CONTINENT'].dropna().unique()
+
+    # Determine area attribution
+    if len(unique_regions) == 1:
+        area_attribution = unique_regions[0]
+    elif len(unique_continents) == 1:
+        area_attribution = unique_continents[0]
+    elif set(unique_continents) == {"Africa", "Asia", "Europe", "Oceania", "Americas"}:
+        area_attribution = "Worldwide"
     else:
-        st.write("No data available for the selected countries.")
+        area_attribution = "Multinational"
 
-    
-    # If any country is missing, return None
-    if len(filtered_data) != len(countries):
-        return "ERROR - Check country names"
+    # Affected countries
+    affected_countries = ", ".join(filtered_df['COUNTRY'].unique())
 
-    # Extract unique values for each region level
-    intermediate_regions = {entry['Intermediate Region Name'] if entry['Intermediate Region Name'] else 'no_attribute' for entry in filtered_data}
-    sub_regions = {entry['Sub-region Name'] if entry['Sub-region Name'] else 'no_attribute' for entry in filtered_data}
-    regions = {entry['Region Name'] if entry['Region Name'] else 'no_attribute' for entry in filtered_data}
+    return area_attribution, affected_countries
 
-    # Check commonality
-    if len(intermediate_regions) == 1 and list(intermediate_regions)[0] != 'no_attribute':
-        return list(intermediate_regions)[0]
-    elif len(sub_regions) == 1 and list(sub_regions)[0] != 'no_attribute':
-        return list(sub_regions)[0]
-    elif len(regions) == 1 and list(regions)[0] != 'no_attribute':
-        return list(regions)[0]
-    else:
-        return "Multinational"
-
+	
+# The main function to run in Streamlit
 def main():
-    st.title("M49 Country or Area Region Checker")
+    st.title("Check Attribution of Areas:")
 
-    # JSON file generated from official CSV file
-    json_file = 'UNSD_M49_official.json'
+    # User input for countries
+    user_input = st.text_input("Enter a list of countries (separated by commas):", "")
 
-    # Input countries
-    input_countries = st.text_area("Enter countries separated by commas:")
-    input_countries_org = input_countries # preservin original entries
-    
-    if not input_countries:
-        st.warning("Please enter at least one country.")
-        return
+    if user_input:
+        # Filter the DataFrame based on user input
+        filtered_df = filter_dataframe_by_country(user_input, db)
 
-    # Handling substitutions for special cases for UNSD M49:
-    input_countries = input_countries.replace("Laos", "Lao People's Democratic Republic")
-    input_countries = input_countries.replace("North Korea", "Democratic People's Republic of Korea")
-    input_countries = input_countries.replace("South Korea", "Republic of Korea")
-    input_countries = input_countries.replace("Macao", "Macao Special Administrative Region")
-    input_countries = input_countries.replace("West Bank and Gaza", "State of Palestine")
-    input_countries = input_countries.replace("Gaza", "State of Palestine")
-    input_countries = input_countries.replace("West Bank", "State of Palestine")
-    input_countries = input_countries.replace("Vatican City State", "Holy See")
-    input_countries = input_countries.replace("Vatican City", "Holy See")
-    input_countries = input_countries.replace("Vatican", "Holy See")
+        # Display the filtered DataFrame
+        if filtered_df.empty:
+            st.write("No matches found.")
+        else:
+            st.write("### Filtered Results")
+            st.dataframe(filtered_df)
 
-
-    # Building list and removing leading and training spaces
-    input_countries = [country.strip() for country in input_countries.split(',')]
-
-    # Validate and revise country names
-    countries = check_proper_names(input_countries, M49_countries_or_areas)
-    # This will remove duplicates from M49 country assignment (comma related)
-    countries = list(set(countries))
-    countries.sort()
-
-    # For Can Gov
-    # Starting by making a list
-    input_countries_org = [country.strip() for country in input_countries_org.split(',')]
-    affected_areas = check_proper_names(input_countries_org, can_gov_countries_or_areas)
-    # Removing duplicates (comma related)
-    affected_areas = list(set(affected_areas))
-    affected_areas.sort()
-    
-    # Transforming affected araes in string for report
-    if len(affected_areas) == 1:
-        affected_areas = affected_areas[0]
-    elif len(affected_areas) == 2:
-        affected_areas = f"{affected_areas[0]} and {affected_areas[1]}"
-    else:
-        affected_areas = ", ".join(affected_areas[:-1]) + ", and " + affected_areas[-1]
-    
-    st.write("**Revised country names (UNSD M49):**", countries)
-
-    # Find common region
-    common_region = find_common_regions(json_file, countries)
-    st.write("**Common (sub-)Region:**", common_region)
-    st.write("**Affected areas:**", affected_areas)
+        # Determine and display area attribution and affected countries
+        area_attribution, affected_countries = determine_area_attribution(filtered_df)
+        st.write("### Area Attribution")
+        st.write(area_attribution)
+        st.write("### Affected Countries")
+        st.write(affected_countries)
 
 if __name__ == "__main__":
     main()
