@@ -1,3 +1,2 @@
 streamlit
 rapidfuzz
-tabulates
