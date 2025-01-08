@@ -65,7 +65,7 @@ def main():
 
     if user_input:
 	# handling special cases
-	user_input = user_input.replace("Congo-Kinshasa", "Democratic Republic of Congo")
+        user_input = user_input.replace("Congo-Kinshasa", "Democratic Republic of Congo")
 	
         # Filter the DataFrame based on user input
         filtered_df = filter_dataframe_by_country(user_input, db)
