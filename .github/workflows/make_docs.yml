@@ -1,0 +1,26 @@
+name: Convert README
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Install Pandoc and LaTeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc texlive-xetex texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra
+
+      - name: Create Documentation Directory
+        run: mkdir -p doc
+
+      - name: Convert README to PDF and DOCX
+        run: |
+          pandoc README.md -o doc/README.pdf
+          pandoc README.md -o doc/README.docx
