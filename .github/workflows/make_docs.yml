@@ -12,10 +12,10 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Install Pandoc and LaTeX
+      - name: Install Pandoc
         run: |
           sudo apt-get update
-          sudo apt-get install -y pandoc texlive-xetex texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra
+          sudo apt-get install -y pandoc
 
       - name: Create Documentation Directory
         run: mkdir -p doc
