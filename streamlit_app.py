@@ -21,6 +21,12 @@ st.markdown(
 db = pd.read_csv("./localities_db.tsv", sep="\t")
 db = db.drop(columns=['CAN_PROV']) # the code is intended to deal with countries not Canadian P/Ts
 
+# Since data for Provinces were removed, I will remove duplication for Canada. These lines can be avoided if we just provide
+# the initial database without Province data
+db = db[db.duplicated(keep=False)]
+
+# This is a list containing the coutry names. The code can be revised as I think we could use the column from the dataframe.
+# Quick fix for now
 all_countries = db['COUNTRY'].tolist()
 
 
