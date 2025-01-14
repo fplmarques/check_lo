@@ -23,7 +23,7 @@ db = db.drop(columns=['CAN_PROV']) # the code is intended to deal with countries
 
 # Since data for Provinces were removed, I will remove duplication for Canada. These lines can be avoided if we just provide
 # the initial database without Province data
-db = db[db.duplicated(keep=False)]
+db = db.drop_duplicates()
 
 # This is a list containing the coutry names. The code can be revised as I think we could use the column from the dataframe.
 # Quick fix for now
