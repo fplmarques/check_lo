@@ -75,8 +75,6 @@ def format_affected_locations(sorted_countries):
 
     return affected_locs
 
-
-
 def main():
     # Initialize session state if necessary
     if 'selected_countries' not in st.session_state:
@@ -86,14 +84,32 @@ def main():
     st.title("Geolocation of Events/Signals:")
 
     # Multi-select for selecting multiple countries
-    st.session_state.selected_countries = st.multiselect(
-        'Select countries associated with the event/signal:', 
-        all_countries, 
-        default=st.session_state.selected_countries
+    selected_countries = st.multiselect(
+        'Select areas associated with the event/signal:',
+        all_countries,
+        format_func=lambda x: x if x else "Unknown",
     )
 
-    # CSS costumization for the button
+    # Update session state with selected countries
+    # This was reworked on the lates version of the code
+    st.session_state.selected_countries = selected_countries
 
+    if selected_countries:
+        # Sort the selected countries alphabetically
+        sorted_countries = sorted(selected_countries)
+
+        # Filter the DataFrame based on user input
+        filtered_df = db[db['COUNTRY'].isin(sorted_countries)]
+
+        # Display the summary table
+        st.markdown(
+            "<span style='font-family: Arial; color: black; font-size: 26px;'>Selected areas:</span>",
+            unsafe_allow_html=True,
+        )
+        filtered_df.rename(columns={'COUNTRY': 'COUNTRY NAME'}, inplace=True)  # Rename for display
+        st.data_editor(filtered_df)
+
+    # CSS customization for the button
     st.markdown(
         """
         <style>
@@ -114,68 +130,36 @@ def main():
         unsafe_allow_html=True,
     )
 
-    # Button to process the data
-    if st.button("Locate"):
-        if st.session_state.selected_countries:
+    # Button to summarize the selections
+    if st.button("Summarize"):
+        if selected_countries:
             # Sort the selected countries alphabetically
-            sorted_countries = list(st.session_state.selected_countries)
-            sorted_countries.sort()
+            sorted_countries = sorted(selected_countries)
 
             # Filter the DataFrame based on user input
             filtered_df = db[db['COUNTRY'].isin(sorted_countries)]
 
+            # Generate summary information
             report_as = determine_area_attribution(filtered_df)
-
             affected_locations = format_affected_locations(sorted_countries)
 
-            # st.markdown(f"#### Reported Locations: {affected_locations}")
-
+            # Display the summary results
             st.markdown(
                 f"""
-                <span style="font-family: Arial; color: black; font-size: 26px;">Reported Locations:</span>
+                <span style="font-family: Arial; color: black; font-size: 26px;">Affected Locations:</span>
                 <span style="font-family: Arial; color: #333333; font-size: 20px;"> {affected_locations}</span>
                 """,
-                unsafe_allow_html=True
+                unsafe_allow_html=True,
             )
-
-            # st.write(f"#### Report as: {report_as}")
 
             st.markdown(
                 f"""
                 <span style="font-family: Arial; color: black; font-size: 26px;">Report as:</span>
                 <span style="font-family: Arial; color: #333333; font-size: 20px;"> {report_as}</span>
                 """,
-                unsafe_allow_html=True
-            )
-
-
-            st.markdown(f"""<span style="font-family: Arial; color: black; font-size: 26px;">Summary of Locations:</span>""", unsafe_allow_html=True)
-
-            # st.write("#### Summary of Locations:")
-            filtered_df.rename(columns={'COUNTRY': 'COUNTRY NAME'}, inplace=True) # This is for Table diplay
-            # st.data_editor(filtered_df)
-
-
-            st.markdown(
-                """
-                <style>
-                .center-table {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                }
-                </style>
-                """,
                 unsafe_allow_html=True,
             )
-
-            # Wrapping the table in a div for centralization
-            st.markdown("<div class='center-table'>", unsafe_allow_html=True)
-            st.data_editor(filtered_df)
-            st.markdown("</div>", unsafe_allow_html=True)
-
         else:
-
             st.write("No countries selected.")
 
 if __name__ == "__main__":
