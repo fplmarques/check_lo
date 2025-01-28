@@ -42,7 +42,7 @@ def determine_area_attribution(filtered_df, selected_countries):
     elif set(unique_continents) == {"Africa", "Asia", "Europe", "Oceania", "Americas"}:
         return "Worldwide"
     else:
-        return "Multinational"
+        return "Multiregional"
 
 
 def format_affected_locations(sorted_countries):
