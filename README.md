@@ -27,12 +27,21 @@ The country, according to the Canadian Government should be written as `Türkiye
 
 ### 2. Daily Report entries no longer will be attributed to institutions, only Geolocalities.
 
-Consider the image below from the Daily Report of Jan. 28, 2025:
+Consider the event below from the Daily Report of Jan. 28, 2025:
 
 ![DR entry #5 of 25-01-28](./images/dr_entry_250128_5.jpg)
 
-This entry would be written, under this new protocol as follows:
+This event will be assigned to Americas, as it is the common region for the countries listes in the summmary (see below):
 
 ![DR entry #5 of 25-01-28](./images/dr_entry_250128_5_corrected.jpg)
+
+### 3. Daily Report entries with multiple countries and territories will be either assigned to the [United Nations geoscheme M49](https://en.wikipedia.org/wiki/United_Nations_geoscheme) regions or continents, it this is not possible, the event would be either considered `Multiregional` or `Worldwide`
+
+
+
+
+
+
+
 
 
