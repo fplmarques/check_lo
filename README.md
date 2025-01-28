@@ -35,9 +35,19 @@ This event will be assigned to Americas, as it is the common region for the coun
 
 ![DR entry #5 of 25-01-28](./images/dr_entry_250128_5_corrected.jpg)
 
-### 3. Daily Report entries with multiple countries and territories will be either assigned to the [United Nations geoscheme M49](https://en.wikipedia.org/wiki/United_Nations_geoscheme) regions or continents, it this is not possible, the event would be either considered `Multiregional` or `Worldwide`
+### 3. Daily Report entries with multiple countries and territories will be either assigned to one of the [United Nations geoscheme M49](https://en.wikipedia.org/wiki/United_Nations_geoscheme) regions or continents, or if this is not possible, it will be assigned to `Multiregional` or `Worldwide` following these rules:
+
+![UN 22 region map](./images/UN_regions.png)
+
+ - #### 3a. If the country or territory is within a single region, the name of the region will be assigned.
+   - **Example:** If the affected locations are Costa Rica and Panama, the event is assigned to `Central America`.
 
 
+ - #### 3b. If the country or territory includes 2 or more regions within a single continent, the name of the continent will be assigned.
+   - **Example:** If the affected locations are Czechia, Germany, and Spain, the event is assigned to `Europe`.
+
+ - #### 3c. If the country or territory includes 2 or more regions from different continents, the event will be considered `Multiregional`.
+   - **Example:** If the affected locations are Morocco and Spain the event is assigned to `Multiregional`.
 
 
 
