@@ -12,11 +12,20 @@ This How-To Guide provides clear, step-by-step instructions on how to effectivel
 ### Audience
 This guide is intended for GPHIN analysts and epidemiolgists.
 
-## Guide lines
+## General Guidelines
 
-### 1. Daily Reports entries no longer will be attributed to institutions, only Geolocalities.
+### 1. The names for countries and territories associated with Daily Report entries will be spelled (including accents) in accordance to the names recognized by the  [Government of Canada](https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/enabling-interoperability/gc-enterprise-data-reference-standards/current-past-official-names-countries-territories-geographic-areas.html).
+
+
+
+### 2. Daily Report entries no longer will be attributed to institutions, only Geolocalities.
 
 Concider the image below frrm the Daily Report of Jan. 28, 2025:
 
 ![DR entry #5 of 25-01-28](./images/dr_entry_250128_5.jpg)
+
+This entry would be written, under this new protocol as follows:
+
+![DR entry #5 of 25-01-28](./images/dr_entry_250128_5_corrected.jpg)
+
 
