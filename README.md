@@ -14,6 +14,9 @@ This guide is intended for GPHIN analysts and epidemiolgists.
 
 ## Guide lines
 
-### 1. Institutions are no longer attributed to "Jurisdiction" for Daily Reports entries.
+### 1. Daily Reports entries no longer will be attributed to institutions, only Geolocalities.
 
+Concider the image below frrm the Daily Report of Jan. 28, 2025:
+
+![DR entry #5 of 25-01-28](./images/dr_entry_250128_5.jpg)
 
