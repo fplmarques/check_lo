@@ -16,100 +16,68 @@ st.markdown(
 )
 
 # Load the CSV file into a DataFrame
-# The database consolidates the country names from CGov and regions and continents from UN m49
-#
 db = pd.read_csv("./localities_db.tsv", sep="\t")
-db = db.drop(columns=['CAN_PROV']) # the code is intended to deal with countries not Canadian P/Ts
+db = db.drop(columns=['CAN_PROV'])  # the code is intended to deal with countries not Canadian P/Ts
 
-# Since data for Provinces were removed, I will remove duplication for Canada. These lines can be avoided if we just provide
-# the initial database without Province data
+# Remove duplication for Canada
 db = db.drop_duplicates()
 
-# This is a list containing the coutry names. The code can be revised as I think we could use the column from the dataframe.
-# Quick fix for now
+# This is a list containing the country names
 all_countries = db['COUNTRY'].tolist()
 
 
-# Function to filter the DataFrame based on user input
-# I am using rapidfuzz to account for misspelling and/or names not in conformity with the current database
-# There were odd behaviors in a previous version which were not tested yet
-#
-def filter_dataframe_by_country(input_countries, dataframe):
-
-    # Filter the DataFrame for the matched countries
-    filtered_df = dataframe[dataframe['COUNTRY'].isin(input_countries)]
-
-    return filtered_df
-
-# This function recover the Area Attribution based on the rules we set upt
-# Has to be tested
-#
-def determine_area_attribution(filtered_df):
-    if filtered_df.empty:
-        return "No matches found.", "No affected countries."
-
+def determine_area_attribution(filtered_df, selected_countries):
+    if len(selected_countries) == 1:
+        # Use the single country name as the report
+        return selected_countries[0]
+    
     unique_regions = filtered_df['REGION'].dropna().unique()
     unique_continents = filtered_df['CONTINENT'].dropna().unique()
 
     # Determine area attribution
     if len(unique_regions) == 1:
-        area_attribution = unique_regions[0]
+        return unique_regions[0]
     elif len(unique_continents) == 1:
-        area_attribution = unique_continents[0]
+        return unique_continents[0]
     elif set(unique_continents) == {"Africa", "Asia", "Europe", "Oceania", "Americas"}:
-        area_attribution = "Worldwide"
+        return "Worldwide"
     else:
-        area_attribution = "Multinational"
-
-
-    return area_attribution
+        return "Multinational"
 
 
 def format_affected_locations(sorted_countries):
     if len(sorted_countries) == 1:
-        affected_locs = sorted_countries[0]
+        return sorted_countries[0]
     elif len(sorted_countries) == 2:
-        affected_locs = " and ".join(sorted_countries)
+        return " and ".join(sorted_countries)
     else:
-        affected_locs = ", ".join(sorted_countries[:-1]) + ", and " + sorted_countries[-1]
+        return ", ".join(sorted_countries[:-1]) + ", and " + sorted_countries[-1]
 
-    return affected_locs
 
 def main():
-    # Initialize session state if necessary
     if 'selected_countries' not in st.session_state:
         st.session_state.selected_countries = []
 
-    # Title
     st.title("Geolocation of Events/Signals:")
 
-    # Multi-select for selecting multiple countries
     selected_countries = st.multiselect(
         'Select areas associated with the event/signal:',
         all_countries,
         format_func=lambda x: x if x else "Unknown",
     )
 
-    # Update session state with selected countries
-    # This was reworked on the lates version of the code
     st.session_state.selected_countries = selected_countries
 
     if selected_countries:
-        # Sort the selected countries alphabetically
         sorted_countries = sorted(selected_countries)
-
-        # Filter the DataFrame based on user input
         filtered_df = db[db['COUNTRY'].isin(sorted_countries)]
-
-        # Display the summary table
         st.markdown(
             "<span style='font-family: Arial; color: black; font-size: 26px;'>Selected areas:</span>",
             unsafe_allow_html=True,
         )
-        filtered_df.rename(columns={'COUNTRY': 'COUNTRY NAME'}, inplace=True)  # Rename for display
+        filtered_df.rename(columns={'COUNTRY': 'COUNTRY NAME'}, inplace=True)
         st.data_editor(filtered_df)
 
-    # CSS customization for the button
     st.markdown(
         """
         <style>
@@ -130,20 +98,13 @@ def main():
         unsafe_allow_html=True,
     )
 
-    # Button to summarize the selections
     if st.button("Summarize"):
         if selected_countries:
-            # Sort the selected countries alphabetically
             sorted_countries = sorted(selected_countries)
-
-            # Filter the DataFrame based on user input
             filtered_df = db[db['COUNTRY'].isin(sorted_countries)]
-
-            # Generate summary information
-            report_as = determine_area_attribution(filtered_df)
+            report_as = determine_area_attribution(filtered_df, selected_countries)
             affected_locations = format_affected_locations(sorted_countries)
 
-            # Display the summary results
             st.markdown(
                 f"""
                 <span style="font-family: Arial; color: black; font-size: 26px;">Affected Locations:</span>
