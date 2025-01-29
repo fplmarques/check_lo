@@ -1,0 +1,42 @@
+name: Build LaTeX Document
+
+on:
+  push:
+    paths:
+      - 'README.tex'  # Trigger when README.tex is modified
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  build_pdf:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install TeX Live (LuaLaTeX)
+        run: |
+          sudo apt update
+          sudo apt install -y texlive-latex-base texlive-latex-extra \
+              texlive-fonts-recommended texlive-xetex \
+              texlive-luatex texlive-pictures \
+              texlive-science texlive-lang-european \
+              texlive-extra-utils ghostscript
+
+      - name: Compile LaTeX to PDF
+        run: |
+          lualatex -interaction=nonstopmode -output-directory=doc README.tex
+
+      - name: Upload PDF as an artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: compiled-pdf
+          path: doc/README_from_LaTeX.pdf
+
+      - name: Commit and push the PDF
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add doc/README.pdf
+          git commit -m "Auto-generated PDF from README.txt" || echo "No changes to commit"
+          git push || echo "No changes to push"
