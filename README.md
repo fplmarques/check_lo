@@ -3,6 +3,31 @@
 ## Purpose
 This How-To Guide provides clear, step-by-step instructions on how to effectively use the AreaFinder app and follow GPHIN's guidelines for geographical location of epidemiological events in GPHIN products. The objective is to apply standardized name when reporting on events in GPHIN products, particularly the Daily Report. The guide is designed to ensure consistency, accuracy, and alignment with official [Government of Canada](https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/enabling-interoperability/gc-enterprise-data-reference-standards/current-past-official-names-countries-territories-geographic-areas.html) and United Nations geolocation standards ([M49](https://unstats.un.org/unsd/methodology/m49/)), enabling the smooth implementation of automated workflows in the GPHIN Collaboration Hub.
 
+
+
+<!-- THIS IS MY COMMENTS:
+THIS SECTINO IS A PIECE OF CRAP 
+I THINK YOU SHOULD LEARN HOW TO WRITE
+THE LAYOUT SUCK
+ECT
+
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ---
 
 ## Scope
