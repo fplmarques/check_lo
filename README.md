@@ -63,4 +63,21 @@ This event will be attributed to `Americas`, as it is the shared region for the 
 
 ## Using [AreaFinder](https://areafinder.streamlit.app/) to report geolocations
 
+ - This application was created to assist the GPHIN team in verifying country and territory names according to current database standards and to help determine the appropriate level of geolocation for reporting.
+
+- #### 1. **Open [AreaFinder](https://areafinder.streamlit.app/):**
+
+![Open AreaFinder](./images/find_area_01.jpg)
+
+- #### 2. **Select affected locations by typing or scrolling through the selection men:**
+
+![Open AreaFinder](./images/find_area_02.jpg)
+
+- #### 3. **Once you have completed the selection, summarize the results:**
+
+![Open AreaFinder](./images/find_area_03.jpg)
+
+- #### 4. **The application will display the summarized information by indicating the Affected Areas and the appropriate reporting forma:**
+
+![Open AreaFinder](./images/find_area_04.jpg)
 
