@@ -10,7 +10,7 @@ This How-To Guide provides clear, step-by-step instructions on how to effectivel
 
 ## Scope
 ### This guide covers the following tasks:
- - How to use the AreaFinder app to select the appropriate geographical location (continent, region, or country) when describing events to GPHIN products.
+ - How to use the AreaFinder app to select the appropriate geographical location (continent, region, or country) when describing events to GPHIN products. <!-- I would put that sentence at the end -->
  - The step-by-step process of applying the geolocation standards outlined in the Daily Report.
  - Guidance on ensuring that country names, regional classifications, and geolocation attributes adhere to the official GoC and UN M49 standards.
 
@@ -33,7 +33,7 @@ According to the Government of Canada, the country name should be written as `TÃ
 ![DR entry #3 of 25-01-16 corrected](./images/dr_entry_250116_3_corrected.jpg)
 
 
-### 2. Event reported by Public Health Agencies (e.g., WHO, PAHO, CDC, ECDC, GPEI, among others)
+### 2. Event reported by Public Health Agencies (e.g., WHO, PAHO, CDC, ECDC, GPEI, among others) <!-- I would put that section after the next one, attribution for multiple countries...So the attribution process is explained first, and then applied to Agencies -->
  - Entries in the **Daily Report** will no longer be attributed to institutions but only to geolocalities.
 
    - **Example:** Consider the following event from the **Daily Report** dated January 28, 2025:
