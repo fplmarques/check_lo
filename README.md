@@ -5,28 +5,6 @@ This How-To Guide provides clear, step-by-step instructions on how to effectivel
 
 
 
-<!-- THIS IS MY COMMENTS:
-THIS SECTINO IS A PIECE OF CRAP 
-I THINK YOU SHOULD LEARN HOW TO WRITE
-THE LAYOUT SUCK
-ECT
-
--->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ---
 
