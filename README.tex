@@ -1,0 +1,176 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{fontspec} % Allows use of modern fonts
+\usepackage{geometry} % Adjust page margins
+\usepackage{fancyhdr} % For headers and footers
+\usepackage{titlesec} % For custom section formatting
+\usepackage{tocloft}  % For table of contents customization
+\usepackage{graphicx} % For images
+\usepackage[colorlinks=true, linkcolor=blue, urlcolor=blue, citecolor=blue]{hyperref}
+\usepackage{parskip} % Simplifies paragraph spacing
+\setlength{\parskip}{1em} % Optional: Adjusts spacing
+\usepackage{amssymb}
+% for tables
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{listings}
+
+\lstset{
+  language=Python,         % Language of the code
+  basicstyle=\ttfamily,    % Font style
+  numbers=left,            % Line numbers on the left
+  numberstyle=\tiny,       % Style of line numbers
+  stepnumber=1,            % Number every line
+  frame=single,            % Frame around the code
+  tabsize=4,               % Width of tabs
+  breaklines=true,         % Line wrapping
+  showstringspaces=false   % Do not show spaces in strings
+}
+
+% Set up margins
+\geometry{top=1in, bottom=1in, left=1in, right=1in}
+
+% Set font
+\setmainfont{Lato} % Replace with a font installed on your system
+
+% Custom section formatting
+\titleformat{\section}{\large\bfseries}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection.}{0.5em}{}
+
+% Table of Contents formatting
+\renewcommand{\cftsecfont}{\bfseries}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+
+\begin{document}
+
+\vspace{10.cm}
+% Cover page
+\begin{titlepage}
+    \centering
+    \vspace{1cm}
+    {\Huge \textbf{GPHIN AreaFinder (How-to)}}\\
+    \vspace{0.5cm}
+    {\Large  Guide to geographical location using \href{https://areafinder.streamlit.app/}{AreaFinder}}\\
+    \vspace{1cm}
+    \textbf{Date: \today}\\
+    \textbf{Revision: 1}
+\end{titlepage}
+\clearpage
+
+% Table of contents (Roman numeral numbering)
+\pagenumbering{roman}
+\tableofcontents
+\clearpage
+
+% Main document (Arabic numbering)
+\pagenumbering{arabic}
+
+\section{Purpose}
+This How-To Guide provides clear, step-by-step instructions on how to effectively use the AreaFinder app and follow GPHIN's guidelines for geographical location of epidemiological events in GPHIN products. The objective is to apply standardized name when reporting on events in GPHIN products, particularly the Daily Report. The guide is designed to ensure consistency, accuracy, and alignment with official \href{https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/enabling-interoperability/gc-enterprise-data-reference-standards/current-past-official-names-countries-territories-geographic-areas.html}{Government of Canada} and United Nations geolocation standards (\href{https://unstats.un.org/unsd/methodology/m49/}{M49}), enabling the smooth implementation of automated workflows in the GPHIN Collaboration Hub.
+
+
+\section{Scope}
+\subsection{This guide covers the following tasks:}
+\begin{itemize}
+
+    \item How to use the AreaFinder app to select the appropriate geographical location (continent, region, or country) when describing events to GPHIN products.
+    \item The step-by-step process of applying the geolocation standards outlined in the Daily Report.
+    \item Guidance on ensuring that country names, regional classifications, and geolocation attributes adhere to the official GoC and UN M49 standards.
+
+\end{itemize}
+
+\section{Audience}
+This guide is intended for GPHIN analysts and epidemiolgists.
+
+\section{General Guidelines}
+
+\subsection{Country and Territory Names}
+\begin{itemize}
+    \item The names of countries and territories mentioned in Daily Report entries will follow the spelling (including accents) as recognized by the \href{https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/enabling-interoperability/gc-enterprise-data-reference-standards/current-past-official-names-countries-territories-geographic-areas.html}{Government of Canada}.
+
+    \item \textbf{Example:} Consider the following event from the Daily Report dated January 16, 2025:
+
+\end{itemize}
+
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{images/dr_entry_250116_3.png}
+\end{center}
+
+
+According to the Government of Canada, the country name should be written as `Türkiye`:
+
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{images/dr_entry_250116_3_corrected.png}
+\end{center}
+
+
+
+\subsection{Event reported by Public Health Agencies (e.g., WHO, PAHO, CDC, ECDC, GPEI, among others)}
+\begin{itemize}
+    \item Entries in the Daily Report will no longer be attributed to institutions but only to geolocalities.
+
+    \item \textbf{Example:} Consider the following event from the Daily Report dated January 28, 2025:
+\end{itemize}
+
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{images/dr_entry_250128_5.png}
+\end{center}
+
+This event will be attributed to `Americas`, as it is the shared region for the countries listed in the summary (shown below):
+
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{images/dr_entry_250128_5_corrected.png}
+\end{center}
+
+
+\subsection{Attribution for Multiple Countries or Territories}
+\begin{itemize}
+    \item For entries involving multiple countries or territories, the attribution will follow the \href{https://en.wikipedia.org/wiki/United_Nations_geoscheme}{United Nations geoscheme M49} regions, or continents where applicable. If neither is possible, the entry will be attributed to \textbf{Multiregional} or \textbf{Worldwide} based on the following rules:
+
+    \begin{center}
+        \includegraphics[width=0.9\textwidth]{images/UN_regions.png}
+    \end{center}
+
+    \begin{enumerate}
+        \renewcommand{\labelenumi}{(\textit{\textbf{\roman{enumi}}})}
+        \item \textbf{Single Region:} If all affected locations are within one region, the name of that region will be assigned. \textbf{Example:} If the affected locations are Costa Rica and Panama, the event is assigned to \textbf{Central America}.
+
+        \item \textbf{Single Continent, Multiple Regions:} If affected locations span multiple regions within a single continent, the continent's name will be assigned. \textbf{Example:} If the affected locations are Czechia, Germany, and Spain, the event is assigned to \textbf{Europe}.
+
+        \item \textbf{Multiregional:} If affected locations include two or more regions from different continents, the event will be considered \textbf{Multiregional}. \textbf{Example:} If the affected locations are Morocco and Spain, the event is assigned to \textbf{Multiregional}.
+
+        \item \textbf{Worldwide:} If affected locations span all continents (excluding Antarctica), the event will be considered \textbf{Worldwide}. \textbf{Example:} If the affected locations are Canada, Iran, Mozambique, New Caledonia, and Switzerland, the event is assigned to \textbf{Worldwide}.
+    \end{enumerate}
+\end{itemize}
+
+\section{Using \href{https://areafinder.streamlit.app/}{AreaFinder} to report geolocations}
+
+\begin{itemize}
+    \item This application was created to assist the GPHIN team in verifying country and territory names according to current database standards and to help determine the appropriate level of geolocation for reporting.
+\end{itemize}
+
+\subsection{Open \href{https://areafinder.streamlit.app/}{AreaFinder}:}
+
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/find_area_01.png}
+\end{center}
+
+\subsection{Select affected locations by typing or scrolling through the selection menu:}
+
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/find_area_02.png}
+\end{center}
+
+\subsection{Once you have completed the selection, summarize the results:}
+
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/find_area_03.png}
+\end{center}
+
+\subsection{The application will display the summarized information by indicating the Affected Areas and the appropriate reporting format:}
+
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/find_area_04.png}
+\end{center}
+
+\end{document}
