@@ -69,7 +69,7 @@ This event will be attributed to `Americas`, as it is the shared region for the 
 
 ![Open AreaFinder](./images/find_area_01.jpg)
 
-- #### 2. **Select affected locations by typing or scrolling through the selection men:**
+- #### 2. **Select affected locations by typing or scrolling through the selection menu:**
 
 ![Open AreaFinder](./images/find_area_02.jpg)
 
@@ -77,7 +77,7 @@ This event will be attributed to `Americas`, as it is the shared region for the 
 
 ![Open AreaFinder](./images/find_area_03.jpg)
 
-- #### 4. **The application will display the summarized information by indicating the Affected Areas and the appropriate reporting forma:**
+- #### 4. **The application will display the summarized information by indicating the Affected Areas and the appropriate reporting format:**
 
 ![Open AreaFinder](./images/find_area_04.jpg)
 
