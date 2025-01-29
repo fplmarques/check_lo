@@ -12,7 +12,7 @@ This How-To Guide provides clear, step-by-step instructions on how to effectivel
  - Guidance on ensuring that country names, regional classifications, and geolocation attributes adhere to the official GoC and UN M49 standards.
 
 ### Audience
-This guide is intended for GPHIN analysts and epidemiolgists.
+This guide is intended for GPHIN analysts and epidemiologists.
 
 ---
 
