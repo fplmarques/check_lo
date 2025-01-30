@@ -30,27 +30,27 @@ According to the Government of Canada, the country name should be written as **`
 ![DR entry #3 of 25-01-16 corrected](./images/dr_entry_250116_3_corrected.jpg)
 
 ### 2. Attribution for Multiple Countries or Territories
- - For entries involving multiple countries or territories, the attribution will follow the [United Nations geoscheme M49](https://en.wikipedia.org/wiki/United_Nations_geoscheme) regions, or continents where applicable. If neither is possible, the entry will be attributed to `Multiregional` or `Worldwide` based on the following rules:
+ - For entries involving multiple countries or territories, the attribution will follow the [United Nations geoscheme M49](https://en.wikipedia.org/wiki/United_Nations_geoscheme) regions, or continents where applicable. If neither is possible, the entry will be attributed to **`Multiregional`** or **`Worldwide`** based on the following rules:
 
 ![UN 22 region map](./images/UN_regions.png)
 
 - #### 3a. **Single Region**: If all affected locations are within one region, the name of that region will be assigned.  
-   - **Example:** If the affected locations are Costa Rica and Panama, the event is assigned to `Central America`.
+   - **Example:** If the affected locations are Costa Rica and Panama, the event is assigned to **`Central America`**.
 
 - #### 3b. **Single Continent, Multiple Regions**: If affected locations span multiple regions within a single continent, the continent's name will be assigned.  
-   - **Example:** If the affected locations are Czechia, Germany, and Spain, the event is assigned to `Europe`.
+   - **Example:** If the affected locations are Czechia, Germany, and Spain, the event is assigned to **`Europe`**.
 
 - #### 3c. **Multiregional**: If affected locations include two or more regions from different continents, the event will be considered `Multiregional`.  
-   - **Example:** If the affected locations are Morocco and Spain, the event is assigned to `Multiregional`.
+   - **Example:** If the affected locations are Morocco and Spain, the event is assigned to **`Multiregional`**.
 
 - #### 3d. **Worldwide**: If affected locations span all continents (excluding Antarctica), the event will be considered `Worldwide`.  
-   - **Example:** If the affected locations are Canada, Iran, Mozambique, New Caledonia, and Switzerland, the event is assigned to `Worldwide`.
+   - **Example:** If the affected locations are Canada, Iran, Mozambique, New Caledonia, and Switzerland, the event is assigned to **`Worldwide`**.
 
 
 ### 3. Event reported by Public Health Agencies (e.g., WHO, PAHO, CDC, ECDC, GPEI, among others)
  - Entries in the **Daily Report** will no longer be attributed to institutions but only to geolocalities.
 
-   - **Example:** Consider the following event from the **Daily Report** dated January 28, 2025:
+   - **Example:** Consider the following event from the Daily Report dated January 28, 2025:
 
 ![DR entry #5 of 25-01-28](./images/dr_entry_250128_5.jpg)
 
