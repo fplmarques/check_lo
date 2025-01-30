@@ -28,7 +28,7 @@ This guide is intended for GPHIN analysts and epidemiologists.
 
 ![DR entry #3 of 25-01-16](./images/dr_entry_250116_3.jpg)
 
-According to the Government of Canada, the country name should be written as `Türkiye`:
+According to the Government of Canada, the country name should be written as **`Türkiye`**:
 
 ![DR entry #3 of 25-01-16 corrected](./images/dr_entry_250116_3_corrected.jpg)
 
@@ -40,7 +40,7 @@ According to the Government of Canada, the country name should be written as `T�
 
 ![DR entry #5 of 25-01-28](./images/dr_entry_250128_5.jpg)
 
-This event will be attributed to `Americas`, as it is the shared region for the countries listed in the summary (shown below):
+This event will be attributed to **`Americas`**, as it is the shared region for the countries listed in the summary (shown below):
 
 ![DR entry #5 of 25-01-28 corrected](./images/dr_entry_250128_5_corrected.jpg)
 
